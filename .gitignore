@@ -14,3 +14,11 @@ wheels/
 
 # VS Code settings
 .vscode/
+
+# Database files
+*.db
+*.sqlite
+instance/
+
+# Migrations
+migrations/
