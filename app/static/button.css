@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+button {
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 1rem;
+    text-align: center;
+    color: #F5F5F5;
+
+    height: 1.875rem;
+    padding: 0.4375rem 0.5rem 0.438rem 2rem;
+    border: 0.0625rem solid #2c2c2c;
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+    background-color: #2c2c2c;
+    background-position: 0.5rem;
+    background-repeat: no-repeat;
+}
+
+button.login {
+    background-image: url(imej/arrow.png);
+}
+
+button.batal {
+    background-image: url(imej/delete.png);
+}
+
+button.import {
+    background-image: url(imej/import.png); /* Icons at icons8.com/icons/set/import--white */
+}
+
+button.tambah {
+    background-image: url(imej/add.png);
+}
+
+button.update {
+    background-image: url(imej/refresh.png); /* Refresh icons created by Freepik - Flaticon at www.flaticon.com/free-icons/refresh */
+}
+
+button.cetak {
+    background-image: url(imej/printer.png);
+}
+
+button.papar {
+    background-image: url(imej/monitor.png);
+}
+
+button.cari {
+    background-image: url(imej/search.png);
+}

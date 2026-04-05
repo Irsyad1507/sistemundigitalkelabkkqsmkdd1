@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Laman Utama{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+{% endblock %}
+
+{% block content %}
+<main>
+    {% if current_user.is_authenticated and current_user.user_tag == 'pengundi' %}
+        <form action="#" method="post">
+            <div class="gambar">
+                {% for calon in senarai_calon %}
+                    {% if calon.idCalon != 'C00' %}
+                        <figure>
+                            <img class="home" src="{{ url_for('static', filename='imej/' + calon.gambar) }}" alt="{{ calon.namaCalon }}">
+                            <figcaption>
+                                <input type="hidden" name="idPengundi" value="{{ current_user.idPengundi }}">
+                                <input type="radio" name="idCalon" value="{{ calon.idCalon }}">
+                            </figcaption>
+                        </figure>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <center>
+            {% if sudah_mengundi %}
+                <p>Anda telah mengundi untuk calon: {{ namaCalon }}</p>
+            {% else %}
+                <p class="arahan">Sila pilih calon yang anda ingin undi</p>
+                <button type="submit" class="tambah" name="submit">Undi</button>
+            {% endif %}
+        </center>
+        </form>
+    {% else %}
+        <div class="gambar">
+            {% for calon in senarai_calon %}
+                {% if calon.idCalon != 'C00' %}
+                    <figure>
+                        <img class="home" src="{{ url_for('static', filename='imej/' + calon.gambar) }}" alt="{{ calon.namaCalon }}">
+                        <figcaption>{{ calon.namaCalon }}</figcaption>
+                    </figure>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+</main>
+{% endblock %}

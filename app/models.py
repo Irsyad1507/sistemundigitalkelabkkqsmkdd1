@@ -6,6 +6,7 @@ from app import db
 class User(UserMixin, db.Model):
     __abstract__ = True
 
+    user_tag = db.Column(db.String(10), unique=True)
     password_hash = db.Column(db.Text)
 
     @property
@@ -28,22 +29,24 @@ class Admin(User):
     __tablename__ = "admin"
 
     idAdmin = db.Column(db.String(3), primary_key=True)
-    namaAdmin = db.Column(db.String(30), unique=True, index=True)
+    namaAdmin = db.Column(db.String(30))
 
 
 class Calon(db.Model):
     __tablename__ = "calon"
 
     idCalon = db.Column(db.String(3), primary_key=True)
-    namaCalon = db.Column(db.String(20), unique=True, index=True)
-    gambar = db.Column(db.String(100), unique=True, index=True)
-    moto = db.Column(db.String(100), unique=True, index=True)
+    namaCalon = db.Column(db.String(20))
+    gambar = db.Column(db.String(100))
+    moto = db.Column(db.String(100))
     idAdmin = db.Column(db.String(3), db.ForeignKey("admin.idAdmin"))
+
+    pengundi = db.relationship("Pengundi", backref="calon")
 
 
 class Pengundi(User):
     __tablename__ = "pengundi"
 
     idPengundi = db.Column(db.String(4), primary_key=True)
-    namaPengundi = db.Column(db.String(30), unique=True, index=True)
+    namaPengundi = db.Column(db.String(30))
     idCalon = db.Column(db.String(3), db.ForeignKey("calon.idCalon"))

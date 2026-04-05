@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+progress {
+    border-radius: 0px;
+    width: 300px;
+    height: 22px;
+    border-bottom: 0.0625rem solid black;
+    border-right: 0.0625rem solid black;
+    content: none;
+}
+
+progress::-webkit-progress-bar {
+    background-color: white;
+    border-radius: 0px;
+}
+
+progress::-webkit-progress-value {
+    background-color: limegreen;
+    border-radius: 0px;
+}
+table {
+    font-family: 'Inter';
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+
+    margin: 0px auto;
+    margin-bottom: 0px;
+    border-collapse: collapse;
+    clear: left;
+    box-shadow: 15px 15px 6px 0px rgba(78, 72, 72, 0.5);
+}
+
+table.maklumat {
+    width: 400px;
+}
+
+caption {
+    font-size: 16px;
+    font-weight: bold;
+    color: #001364;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+td, th {
+    padding: 8px;
+    border: 2px solid black;
+}
+
+td.nama {
+    width: 150px;
+    text-align: left;
+}
+
+tr:nth-child(odd) {
+    background-color: #C2C2C2;
+}
+
+tr:nth-child(even) {
+    background-color: #E8E8E8;
+}
+
+th {
+    font-weight: bold;
+    color: white;
+    background-color: #2F2F2F;
+}
