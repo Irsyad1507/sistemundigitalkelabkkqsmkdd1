@@ -39,6 +39,11 @@ A PHP ported web app built using Python (Flask)
 5. Exit the shell using the exit() command
 6. Run the project:
    ```bash
-   python 'run.py'
+   uv run 'run.py'
    ```
 7. Visit http://localhost:5000 on your browser
+
+## Notes
+- This isn't intended for production deployment
+- Feel free to tweak this based on your needs
+- Will add requirements.txt for legacy pip support
