@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Senarai Admin{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='senarai.css') }}">
+{% endblock %}
+
+{% block content %}
+    <table>
+        <caption>SENARAI NAMA ADMIN</caption>
+        <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th colspan="2">Tindakan</th>
+        </tr>
+        {% for admin in admins %}
+            <tr>
+                <td>{{ admin.idAdmin }}</td>
+                <td class="nama">{{ admin.namaAdmin }}</td>
+                <td>
+                    <a href="{{ url_for('admin.admin_update', idadmin=admin.idAdmin) }}">
+                        <img src="{{ url_for('static', filename='imej/refresh.png') }}" alt="refresh icon">
+                    </a>
+                </td>
+                <td>
+                    <a href="javascript:padam('{{ admin.idAdmin }}');">
+                        <img src="{{ url_for('static', filename='imej/delete.png') }}" alt="delete icon">
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function padam(idAdmin) {
+            if (confirm("Adakah anda ingin padam?")) {
+                window.location.href = "{{ url_for('admin.admin_delete', idadmin='') }}" + idAdmin;
+            }
+        }
+    </script>
+{% endblock %}

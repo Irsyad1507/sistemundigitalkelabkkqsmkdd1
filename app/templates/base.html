@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %} | SISTEM UNDIGITAL KELAB KKQ SMKDD1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">
     {% block style %}
     {% endblock %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">
 </head>
 <body>
     <header>
@@ -16,4 +16,6 @@
     {% block content %}
     {% endblock %}
 </body>
+{% block script %}
+{% endblock %}
 </html>

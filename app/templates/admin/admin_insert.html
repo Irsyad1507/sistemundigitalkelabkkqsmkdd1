@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Tambah Admin{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='borang.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <h4 class="{{ category }}">{{ message }}</h4>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <h3>BORANG TAMBAH ADMIN</h3>
+    <form method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <table>
+            <tr>
+                <td>ID Admin</td>
+                <td><input type="text" name="idAdmin" required placeholder="Cth: A00"></td>
+            </tr>
+            <tr>
+                <td>Nama Admin</td>
+                <td><input type="text" name="namaAdmin" required></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" name="password" required placeholder="Min 8 char"></td>
+            </tr>
+        </table>
+        <button type="submit" class="tambah" name="submit">Tambah</button>
+    </form>
+{% endblock %}

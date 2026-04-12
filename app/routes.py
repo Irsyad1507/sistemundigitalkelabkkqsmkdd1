@@ -2,11 +2,27 @@ from flask import render_template, redirect, url_for, request
 from app import app, db, login_manager
 from app.models import Admin, Calon, Pengundi
 from flask_login import current_user
+from functools import wraps
 
 
 @login_manager.user_loader
 def load_user(user_id):
     return Admin.query.get(user_id) or Pengundi.query.get(user_id)
+
+
+def require_admin(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated or not isinstance(current_user, Admin):
+            return redirect(url_for("index"))
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+
+@app.context_processor
+def inject_admin():
+    return dict(is_admin=isinstance(current_user, Admin))
 
 
 @app.route("/")

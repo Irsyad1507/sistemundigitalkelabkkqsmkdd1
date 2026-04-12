@@ -6,7 +6,6 @@ from app import db
 class User(UserMixin, db.Model):
     __abstract__ = True
 
-    user_tag = db.Column(db.String(10), unique=True)
     password_hash = db.Column(db.Text)
 
     @property
