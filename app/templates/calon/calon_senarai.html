@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Senarai Calon{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='senarai.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+{% endblock %}
+
+{% block content %}
+    <table>
+        <caption>SENARAI NAMA CALON</caption>
+        <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Gambar</th>
+            <th>Moto</th>
+            <th colspan="3">Tindakan</th>
+        </tr>
+        {% for calon in senarai_calon %}
+            <tr>
+                <td>{{ calon.idCalon }}</td>
+                <td>{{ calon.namaCalon }}</td>
+                <td><img width="100" src="{{ url_for('static', filename='imej/' + calon.gambar) }}" alt="{{ calon.namaCalon }}"></td>
+                <td>{{ calon.moto }}</td>
+                <td>
+                    <a href="#">
+                        <img src="{{ url_for('static', filename='imej/refresh.png') }}" alt="refresh icon">
+                    </a>
+                </td>
+                <td>
+                    <a href="javascript:padam('{{ calon.idCalon }}');">
+                        <img src="{{ url_for('static', filename='imej/delete.png') }}" alt="delete icon">
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+{% block script %}
+    <!-- <script>
+        function padam(idCalon) {
+            if (confirm("Adakah anda ingin padam?")) {
+                window.location.href = "" + idCalon;
+            }
+        }
+    </script> -->
+{% endblock %}

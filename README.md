@@ -8,7 +8,7 @@ A PHP ported web app built using Python (Flask)
   ```bash
   pip install uv
   ```
-  Refer https://docs.astral.sh/uv/getting-started/installation/ for more installation guides
+  Refer [UV installation docs](https://docs.astral.sh/uv/getting-started/installation/) for more installation guides
 
 ## Project Setup
 1. Clone this repository
@@ -37,13 +37,20 @@ A PHP ported web app built using Python (Flask)
    >>> db.create_all()
    ```
 5. Exit the shell using the exit() command
-6. Run the project:
+6. Create a .env file in the root directory
+7. Add these to your .env file:
+   ```.env
+   SECRET_KEY="REPLACE-WITH-REAL-SECRET-KEY"
+   DATABASE_URI="sqlite:///undi.db"
+   ```
+   - Generate secret keys at [djecrety website](https://djecrety.ir/)
+8. Run the project:
    ```bash
    uv run 'run.py'
    ```
-7. Visit http://localhost:5000 on your browser
+9. Visit http://localhost:5000 on your browser
 
 ## Notes
 - This isn't intended for production deployment
-- Feel free to tweak this based on your needs
+- Feel free to tweak this based on your needs (do it on your local machine)
 - Will add requirements.txt for legacy pip support

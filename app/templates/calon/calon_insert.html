@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Tambah Calon{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='borang.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <h4 class="{{ category }}">{{ message }}</h4>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <h3>BORANG TAMBAH CALON</h3>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <table>
+            <tr>
+                <td>ID Calon</td>
+                <td><input type="text" name="idCalon" required placeholder="Cth: C00"></td>
+            </tr>
+            <tr>
+                <td>Nama Calon</td>
+                <td><input type="text" name="namaCalon" required></td>
+            </tr>
+            <tr>
+                <td>Gambar</td>
+                <td><input type="file" name="gambar" required accept=".png, .jpg, .jpeg"></td>
+            </tr>
+            <tr>
+                <td>Moto</td>
+                <td><input type="text" name="moto" required></td>
+            </tr>
+            <tr>
+                <td>Admin</td>
+                <td>
+                    <select name="idAdmin">
+                        {% for a in admin %}
+                            <option value="{{ a.idAdmin }}">{{ a.namaAdmin }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <button type="submit" class="tambah" name="submit">Tambah</button>
+    </form>
+{% endblock %}

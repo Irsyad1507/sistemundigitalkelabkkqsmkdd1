@@ -1,0 +1,20 @@
+<nav>
+    <ul>
+        <li><a href="{{ url_for('index') }}"><b>RUANG UNDI</b></a></li>
+    </ul>
+    <ul>
+        <li><a href="#"><b>PROFAIL</b></a></li>
+    </ul>
+    <ul>
+        <li>
+            {% if current_user.is_authenticated %}
+                <a href="#"><b>LOG KELUAR</b></a>
+            {% else %}
+                <a href="#"><b>LOG MASUK</b></a>
+            {% endif %}
+        </li>
+    </ul>
+    {% if current_user.is_authenticated %}
+        <h5>Selamat Datang {{ current_user.name }}</h5>
+    {% endif %}
+</nav>
