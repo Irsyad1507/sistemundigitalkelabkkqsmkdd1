@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Kemaskini Admin{% endblock %}
+{% block title %}Kemaskini Calon{% endblock %}
 
 {% block style %}
     <link rel="stylesheet" href="{{ url_for('static', filename='borang.css') }}">
@@ -15,21 +15,28 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-    <h3>KEMASKINI ADMIN</h3>
-    <form method="POST">
+    <h3>KEMASKINI CALON</h3>
+    <form method="POST" enctype="multipart/form-data">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <table>
             <tr>
-                <td>ID Admin</td>
-                <td><input type="text" name="idAdmin" value="{{ admin.idAdmin }}"></td>
+                <td>ID Calon</td>
+                <td><input type="text" name="idCalon" value="{{ calon.idCalon }}"></td>
             </tr>
             <tr>
-                <td>Nama Admin</td>
-                <td><input type="text" name="namaAdmin" value="{{ admin.namaAdmin }}"></td>
+                <td>Nama Calon</td>
+                <td><input type="text" name="namaCalon" value="{{ calon.namaCalon }}"></td>
             </tr>
             <tr>
-                <td>Password</td>
-                <td><input type="password" name="password" value="{{ admin.password }}"></td>
+                <td class="warna">Gambar</td>
+                <td>
+                    <input type="file" name="gambar" accept=".png, .jpg, .jpeg">
+                    <img width="100" src="{{ url_for('static', filename='imej/' + calon.gambar) }}" alt="{{ calon.namaCalon }}">
+                </td>
+            </tr>
+            <tr>
+                <td>Moto</td>
+                <td><input type="text" name="moto" value="{{ calon.moto }}"></td>
             </tr>
         </table>
         <button type="submit" class="update" name="submit">Update</button>

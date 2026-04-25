@@ -41,15 +41,16 @@ def admin_update(idadmin):
     admin = Admin.query.get(idadmin)
     if not admin:
         return "Admin not found", 404
-    old_admin = admin
 
     if request.method == "POST":
         idAdmin = request.form.get("idAdmin")
         namaAdmin = request.form.get("namaAdmin")
         password = request.form.get("password")
 
-        admin.idAdmin = idAdmin if idAdmin else old_admin.idAdmin
-        admin.namaAdmin = namaAdmin if namaAdmin else old_admin.namaAdmin
+        if idAdmin:
+            admin.idAdmin = idAdmin
+        if namaAdmin:
+            admin.namaAdmin = namaAdmin
         if password:
             admin.password = password
         db.session.commit()
@@ -65,7 +66,7 @@ def admin_update(idadmin):
 def admin_delete(idadmin):
     admin = Admin.query.get(idadmin)
     if not admin:
-        return "Admin not found", 404
+        return {"error": "Admin not found"}, 404
     db.session.delete(admin)
     db.session.commit()
-    return redirect(url_for("admin.admin_senarai"))
+    return {"message": "Deleted successfully"}, 200

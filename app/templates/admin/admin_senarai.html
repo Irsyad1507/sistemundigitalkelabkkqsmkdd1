@@ -37,7 +37,25 @@
     <script>
         function padam(idAdmin) {
             if (confirm("Adakah anda ingin padam?")) {
-                window.location.href = "{{ url_for('admin.admin_delete', idadmin='') }}" + idAdmin;
+                fetch(`/admin/delete/${idAdmin}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Delete failed');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("Ralat: Gagal memadam");
+                });
             }
         }
     </script>

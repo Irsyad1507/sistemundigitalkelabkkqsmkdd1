@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Senarai Calon{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='senarai.css') }}">
+{% endblock %}
+
+{% block content %}
+    <table>
+        <caption>SENARAI CALON</caption>
+        <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Gambar</th>
+            <th>Moto</th>
+        </tr>
+        {% for calon in profil_calon %}
+            {% if calon.idCalon != 'C00' %}
+                <tr>
+                    <td>{{ calon.idCalon }}</td>
+                    <td>{{ calon.namaCalon }}</td>
+                    <td><img width="100" src="{{ url_for('static', filename='imej/' + calon.gambar) }}" alt="{{ calon.namaCalon }}"></td>
+                    <td>{{ calon.moto }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+{% endblock %}
+
+{% block script %}
+    <!-- <script>
+        function padam(idCalon) {
+            if (confirm("Adakah anda ingin padam?")) {
+                window.location.href = "" + idCalon;
+            }
+        }
+    </script> -->
+{% endblock %}

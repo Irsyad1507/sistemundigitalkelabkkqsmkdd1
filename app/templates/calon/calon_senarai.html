@@ -24,7 +24,7 @@
                 <td><img width="100" src="{{ url_for('static', filename='imej/' + calon.gambar) }}" alt="{{ calon.namaCalon }}"></td>
                 <td>{{ calon.moto }}</td>
                 <td>
-                    <a href="#">
+                    <a href="{{ url_for('calon.calon_update', idcalon=calon.idCalon) }}">
                         <img src="{{ url_for('static', filename='imej/refresh.png') }}" alt="refresh icon">
                     </a>
                 </td>
@@ -39,11 +39,29 @@
 {% endblock %}
 
 {% block script %}
-    <!-- <script>
+    <script>
         function padam(idCalon) {
             if (confirm("Adakah anda ingin padam?")) {
-                window.location.href = "" + idCalon;
+                fetch(`/calon/delete/${idCalon}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Delete failed');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("Ralat: Gagal memadam");
+                });
             }
         }
-    </script> -->
+    </script>
 {% endblock %}
