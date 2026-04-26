@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, request
+from flask import render_template, redirect, url_for
 from app import app, db, login_manager
 from app.models import Admin, Calon, Pengundi
 from flask_login import current_user
@@ -35,11 +35,15 @@ def index():
         .join(Calon, Pengundi.idCalon == Calon.idCalon)
         .all()
     )
-    for pengundi, calon in undian:
-        if pengundi.idPengundi == current_user.idPengundi and pengundi.idCalon != "C00":
-            namaCalon = calon.namaCalon
-            sudah_mengundi = True
-            break
+    if current_user.is_authenticated and isinstance(current_user, Pengundi):
+        for pengundi, calon in undian:
+            if (
+                pengundi.idPengundi == current_user.idPengundi
+                and pengundi.idCalon != "C00"
+            ):
+                namaCalon = calon.namaCalon
+                sudah_mengundi = True
+                break
     return render_template(
         "index.html",
         senarai_calon=senarai_calon,

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Carian Pengundi{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='borang.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+{% endblock %}
+
+{% block navbar %}
+    {% include 'admin_navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    <h3>CARIAN PENGUNDI</h3>
+    <form action="{{ url_for('pengundi.pengundi_maklumat') }}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <table>
+            <tr>
+                <td>Pengundi</td>
+                <td>
+                    <select name="idPengundi">
+                        {% for pengundi in pengundi_list %}
+                            <option value="{{ pengundi.idPengundi }}">{{ pengundi.namaPengundi }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <button type="submit" class="cari" name="submit">Cari</button>
+    </form>
+{% endblock %}

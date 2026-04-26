@@ -60,7 +60,7 @@ def admin_update(idadmin):
     return render_template("admin/admin_update.html", admin=admin)
 
 
-@admin_bp.route("/delete/<idadmin>")
+@admin_bp.delete("/delete/<idadmin>")
 # @login_required (UNCOMMENT ONCE AUTH ADDED)
 # @require_admin (UNCOMMENT ONCE AUTH ADDED)
 def admin_delete(idadmin):

@@ -3,8 +3,8 @@
         <li>
             <a href="#"><b>ADMIN</b></a>
             <ul>
-                <li><a href="#">Tambah</a></li>
-                <li><a href="#">Senarai</a></li>
+                <li><a href="{{ url_for('admin.admin_insert') }}">Tambah</a></li>
+                <li><a href="{{ url_for('admin.admin_senarai') }}">Senarai</a></li>
             </ul>
         </li>
     </ul>
@@ -12,9 +12,9 @@
         <li>
             <a href="#"><b>PENGUNDI</b></a>
             <ul>
-                <li><a href="#">Tambah</a></li>
-                <li><a href="#">Senarai</a></li>
-                <li><a href="#">Carian</a></li>
+                <li><a href="{{ url_for('pengundi.pengundi_insert') }}">Tambah</a></li>
+                <li><a href="{{ url_for('pengundi.pengundi_senarai') }}">Senarai</a></li>
+                <li><a href="{{ url_for('pengundi.pengundi_carian') }}">Carian</a></li>
             </ul>
         </li>
     </ul>
@@ -22,8 +22,8 @@
         <li>
             <a href="#"><b>CALON</b></a>
             <ul>
-                <li><a href="#">Tambah</a></li>
-                <li><a href="#">Senarai</a></li>
+                <li><a href="{{ url_for('calon.calon_insert') }}">Tambah</a></li>
+                <li><a href="{{ url_for('calon.calon_senarai') }}">Senarai</a></li>
             </ul>
         </li>
     </ul>

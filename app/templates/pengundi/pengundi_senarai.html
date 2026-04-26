@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Senarai Admin{% endblock %}
+{% block title %}Senarai Pengundi{% endblock %}
 
 {% block style %}
     <link rel="stylesheet" href="{{ url_for('static', filename='senarai.css') }}">
@@ -12,23 +12,23 @@
 
 {% block content %}
     <table>
-        <caption>SENARAI NAMA ADMIN</caption>
+        <caption>SENARAI NAMA PENGUNDI</caption>
         <tr>
             <th>ID</th>
             <th>Nama</th>
             <th colspan="2">Tindakan</th>
         </tr>
-        {% for admin in admins %}
+        {% for pengundi in pengundi_list %}
             <tr>
-                <td>{{ admin.idAdmin }}</td>
-                <td class="nama">{{ admin.namaAdmin }}</td>
+                <td>{{ pengundi.idPengundi }}</td>
+                <td class="nama">{{ pengundi.namaPengundi }}</td>
                 <td>
-                    <a href="{{ url_for('admin.admin_update', idadmin=admin.idAdmin) }}">
+                    <a href="{{ url_for('pengundi.pengundi_update', idpengundi=pengundi.idPengundi) }}">
                         <img src="{{ url_for('static', filename='imej/refresh.png') }}" alt="refresh icon">
                     </a>
                 </td>
                 <td>
-                    <a href="javascript:padam('{{ admin.idAdmin }}');">
+                    <a href="javascript:padam('{{ pengundi.idPengundi }}');">
                         <img src="{{ url_for('static', filename='imej/delete.png') }}" alt="delete icon">
                     </a>
                 </td>
@@ -39,9 +39,9 @@
 
 {% block script %}
     <script>
-        function padam(idAdmin) {
+        function padam(idPengundi) {
             if (confirm("Adakah anda ingin padam?")) {
-                fetch(`/admin/delete/${idAdmin}`, {
+                fetch(`/pengundi/delete/${idPengundi}`, {
                     method: 'DELETE',
                     headers: {
                         'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')

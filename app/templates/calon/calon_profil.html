@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='senarai.css') }}">
 {% endblock %}
 
+{% block navbar %}
+    {% include 'pengundi_navbar.html' %}
+{% endblock %}
+
 {% block content %}
     <table>
         <caption>SENARAI CALON</caption>

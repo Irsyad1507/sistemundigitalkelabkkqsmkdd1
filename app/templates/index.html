@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
 {% endblock %}
 
+{% block navbar %}
+    {% include 'pengundi_navbar.html' %}
+{% endblock %}
+
 {% block content %}
 <main>
     {% if current_user.is_authenticated and current_user.user_tag == 'pengundi' %}

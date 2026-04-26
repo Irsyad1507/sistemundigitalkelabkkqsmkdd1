@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Maklumat Pengundi{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='senarai.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+{% endblock %}
+
+{% block navbar %}
+    {% include 'admin_navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    <table class="maklumat">
+        <caption>MAKLUMAT PENGUNDI</caption>
+        <tr>
+            <th>Perkara</th>
+            <th>Maklumat</th>
+        </tr>
+        <tr>
+            <td class="maklumat">ID Pengundi</td>
+            <td class="maklumat">{{ pengundi.idPengundi }}</td>
+        </tr>
+        <tr>
+            <td class="maklumat">Nama Pengundi</td>
+            <td class="maklumat">{{ pengundi.namaPengundi }}</td>
+        </tr>
+    </table>
+{% endblock %}

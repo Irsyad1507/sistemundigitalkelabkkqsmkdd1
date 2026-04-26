@@ -18,9 +18,11 @@ login_manager.login_view = "login"
 
 from app.admin_routes import admin_bp
 from app.calon_routes import calon_bp
+from app.pengundi_routes import pengundi_bp
 
 app.register_blueprint(admin_bp, url_prefix="/admin")
 app.register_blueprint(calon_bp, url_prefix="/calon")
+app.register_blueprint(pengundi_bp, url_prefix="/pengundi")
 
 from app import routes, models
 

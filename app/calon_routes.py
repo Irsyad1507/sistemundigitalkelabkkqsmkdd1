@@ -111,7 +111,7 @@ def calon_update(idcalon):
         return render_template("calon/calon_update.html", calon=calon)
 
 
-@calon_bp.route("/delete/<idcalon>", methods=["DELETE"])
+@calon_bp.delete("/delete/<idcalon>")
 # @login_required (UNCOMMENT ONCE AUTH ADDED)
 # @require_admin (UNCOMMENT ONCE AUTH ADDED)
 def calon_delete(idcalon):

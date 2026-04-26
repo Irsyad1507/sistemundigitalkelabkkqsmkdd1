@@ -13,13 +13,12 @@
     <header>
         <img class="tajuk" src="{{ url_for('static', filename='imej/tajuk.png') }}" alt="SISTEM UNDIGITAL KELAB KKQ SMKDD1">
     </header>
-    {% if current_user.is_authenticated and isinstance(current_user, Admin) %}
-        {% include 'admin_navbar.html' %}
-    {% else %}
-        {% include 'pengundi_navbar.html' %}
-    {% endif %}
-    {% block content %}
-    {% endblock %}
+    <main>
+        {% block navbar %}
+        {% endblock %}
+        {% block content %}
+        {% endblock %}
+    </main>
 </body>
 {% block script %}
 {% endblock %}

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Kemaskini Calon{% endblock %}
+{% block title %}Kemaskini Pengundi{% endblock %}
 
 {% block style %}
     <link rel="stylesheet" href="{{ url_for('static', filename='borang.css') }}">
@@ -19,28 +19,21 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-    <h3>KEMASKINI CALON</h3>
-    <form method="POST" enctype="multipart/form-data">
+    <h3>KEMASKINI PENGUNDI</h3>
+    <form method="POST">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <table>
             <tr>
-                <td>ID Calon</td>
-                <td><input type="text" name="idCalon" value="{{ calon.idCalon }}"></td>
+                <td>ID Pengundi</td>
+                <td><input type="text" name="idPengundi" value="{{ pengundi.idPengundi }}"></td>
             </tr>
             <tr>
-                <td>Nama Calon</td>
-                <td><input type="text" name="namaCalon" value="{{ calon.namaCalon }}"></td>
+                <td>Nama Pengundi</td>
+                <td><input type="text" name="namaPengundi" value="{{ pengundi.namaPengundi }}"></td>
             </tr>
             <tr>
-                <td class="warna">Gambar</td>
-                <td>
-                    <input type="file" name="gambar" accept=".png, .jpg, .jpeg">
-                    <img width="100" src="{{ url_for('static', filename='imej/' + calon.gambar) }}" alt="{{ calon.namaCalon }}">
-                </td>
-            </tr>
-            <tr>
-                <td>Moto</td>
-                <td><input type="text" name="moto" value="{{ calon.moto }}"></td>
+                <td>Password</td>
+                <td><input type="password" name="password" value="{{ pengundi.password }}"></td>
             </tr>
         </table>
         <button type="submit" class="update" name="submit">Update</button>
