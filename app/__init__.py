@@ -26,6 +26,4 @@ app.register_blueprint(pengundi_bp, url_prefix="/pengundi")
 
 from app import routes, models
 
-app.jinja_env.globals.update(isinstance=isinstance, Admin=models.Admin)
-
 # Will add logging support for production

@@ -8,7 +8,7 @@ from .models import Admin
 admin_bp = Blueprint("admin", __name__, url_prefix="/admin")
 
 
-@admin_bp.route("/senarai")
+@admin_bp.get("/senarai")
 # @login_required (UNCOMMENT ONCE AUTH ADDED)
 # @require_admin (UNCOMMENT ONCE AUTH ADDED)
 def admin_senarai():

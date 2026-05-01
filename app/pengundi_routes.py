@@ -8,9 +8,9 @@ from .models import Pengundi
 pengundi_bp = Blueprint("pengundi", __name__, url_prefix="/pengundi")
 
 
-@pengundi_bp.route("/senarai")
+@pengundi_bp.get("/senarai")
 # @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_pengundi (UNCOMMENT ONCE AUTH ADDED)
+# @require_admin (UNCOMMENT ONCE AUTH ADDED)
 def pengundi_senarai():
     pengundi_list = Pengundi.query.all()
     return render_template(
@@ -20,7 +20,7 @@ def pengundi_senarai():
 
 @pengundi_bp.route("/insert", methods=["GET", "POST"])
 # @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_pengundi (UNCOMMENT ONCE AUTH ADDED)
+# @require_admin (UNCOMMENT ONCE AUTH ADDED)
 def pengundi_insert():
     if request.method == "POST":
         idPengundi = request.form.get("idPengundi")
@@ -45,7 +45,7 @@ def pengundi_insert():
 
 @pengundi_bp.route("/update/<idpengundi>", methods=["GET", "POST"])
 # @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_pengundi (UNCOMMENT ONCE AUTH ADDED)
+# @require_admin (UNCOMMENT ONCE AUTH ADDED)
 def pengundi_update(idpengundi):
     pengundi = Pengundi.query.get(idpengundi)
     if not pengundi:
@@ -73,7 +73,7 @@ def pengundi_update(idpengundi):
 
 @pengundi_bp.delete("/delete/<idpengundi>")
 # @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_pengundi (UNCOMMENT ONCE AUTH ADDED)
+# @require_admin (UNCOMMENT ONCE AUTH ADDED)
 def pengundi_delete(idpengundi):
     pengundi = Pengundi.query.get(idpengundi)
     if not pengundi:
@@ -85,7 +85,7 @@ def pengundi_delete(idpengundi):
 
 @pengundi_bp.route("/carian")
 # @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_pengundi (UNCOMMENT ONCE AUTH ADDED)
+# @require_admin (UNCOMMENT ONCE AUTH ADDED)
 def pengundi_carian():
     pengundi_list = Pengundi.query.all()
     return render_template("pengundi/pengundi_carian.html", pengundi_list=pengundi_list)
@@ -93,7 +93,7 @@ def pengundi_carian():
 
 @pengundi_bp.post("/maklumat")
 # @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_pengundi (UNCOMMENT ONCE AUTH ADDED)
+# @require_admin (UNCOMMENT ONCE AUTH ADDED)
 def pengundi_maklumat():
     idpengundi = request.form.get("idPengundi")
     pengundi = Pengundi.query.get(idpengundi)

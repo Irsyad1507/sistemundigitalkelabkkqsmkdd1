@@ -11,7 +11,7 @@ import os
 calon_bp = Blueprint("calon", __name__, url_prefix="/calon")
 
 
-@calon_bp.route("/senarai")
+@calon_bp.get("/senarai")
 # @login_required (UNCOMMENT ONCE AUTH ADDED)
 # @require_admin (UNCOMMENT ONCE AUTH ADDED)
 def calon_senarai():
@@ -124,8 +124,6 @@ def calon_delete(idcalon):
 
 
 @calon_bp.route("/profil")
-# @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_admin (UNCOMMENT ONCE AUTH ADDED)
 def calon_profil():
     profil_calon = Calon.query.all()
     return render_template("calon/calon_profil.html", profil_calon=profil_calon)

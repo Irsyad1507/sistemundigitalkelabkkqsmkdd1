@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='borang.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+{% endblock %}
+
+{% block navbar %}
+    {% include 'pengundi_navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <h4 class="{{ category }}">{{ message }}</h4>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <h3>SIGN UP</h3>
+    <form name="borang" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <table>
+            <tr>
+                <td class="saiz">ID Pengundi</td>
+                <td><input type="text" name="idPengundi" required placeholder="Cth: U001"></td>
+            </tr>
+            <tr>
+                <td class="saiz">Nama Pengundi</td>
+                <td><input type="text" name="namaPengundi" required></td>
+            </tr>
+            <tr>
+                <td class="saiz">Password</td>
+                <td><input type="password" name="password" required placeholder="Min 8 char"></td>
+            </tr>
+        </table>
+        <button type="submit" class="tambah" name="submit" onclick="return semak()">Daftar</button>
+        <button type="button" class="batal" onclick="window.location.href='{{ url_for("index") }}'">Batal</button>
+    </form>
+    <br>
+    <center>
+        <p class="saiz">Ubah saiz</p>
+        <input type="range" min="14" max="30" value="14" oninput="ubahSaiz(this.value)">
+    </center>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function semak() {
+            var borang = document.forms["borang"];
+            var idPengundi = borang["idPengundi"].value.trim();
+
+            if (idPengundi.length !== 4) {
+                alert("ID Pengundi mesti tepat 4 aksara.");
+                return false;
+            }
+
+            borang.submit();
+        }
+
+        function ubahSaiz(saiz) {
+            var elemen = document.querySelectorAll(".saiz");
+            elemen.forEach(function(el) {
+                el.style.fontSize = saiz + "px";
+            });
+        }
+    </script>
+{% endblock %}

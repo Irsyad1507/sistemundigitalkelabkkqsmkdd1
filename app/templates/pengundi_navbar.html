@@ -8,13 +8,13 @@
     <ul>
         <li>
             {% if current_user.is_authenticated %}
-                <a href="#"><b>LOG KELUAR</b></a>
+                <a href="{{ url_for('logout') }}"><b>LOG KELUAR</b></a>
             {% else %}
-                <a href="#"><b>LOG MASUK</b></a>
+                <a href="{{ url_for('login') }}"><b>LOG MASUK</b></a>
             {% endif %}
         </li>
     </ul>
     {% if current_user.is_authenticated %}
-        <h5>Selamat Datang {{ current_user.name }}</h5>
+        <h5>Selamat Datang {{ current_user.namaPengundi }}</h5>
     {% endif %}
 </nav>

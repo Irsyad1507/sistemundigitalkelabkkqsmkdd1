@@ -4,6 +4,22 @@
 
 {% block style %}
     <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+    <style>
+        h4 {
+            font-family: 'Inter';
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-align: center;
+            color: black;
+            width: 23.75rem;
+
+            padding: 1.25rem;
+            border-radius: 0.625rem;
+            border: 0.125rem solid black;
+            margin: 1.25rem auto 0px;
+            background-color: #FEFEFE;
+        }
+    </style>
 {% endblock %}
 
 {% block navbar %}
@@ -11,9 +27,17 @@
 {% endblock %}
 
 {% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <h4 class="{{ category }}">{{ message }}</h4>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 <main>
-    {% if current_user.is_authenticated and current_user.user_tag == 'pengundi' %}
-        <form action="#" method="post">
+    {% if current_user.is_authenticated and not is_admin %}
+        <form action="{{ url_for('pengundi.pengundi_undi') }}" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <div class="gambar">
                 {% for calon in senarai_calon %}
                     {% if calon.idCalon != 'C00' %}

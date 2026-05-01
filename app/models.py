@@ -30,6 +30,9 @@ class Admin(User):
     idAdmin = db.Column(db.String(3), primary_key=True)
     namaAdmin = db.Column(db.String(30))
 
+    def get_id(self):
+        return self.idAdmin
+
 
 class Calon(db.Model):
     __tablename__ = "calon"
@@ -49,3 +52,6 @@ class Pengundi(User):
     idPengundi = db.Column(db.String(4), primary_key=True)
     namaPengundi = db.Column(db.String(30))
     idCalon = db.Column(db.String(3), db.ForeignKey("calon.idCalon"))
+
+    def get_id(self):
+        return self.idPengundi
