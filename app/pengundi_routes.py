@@ -2,15 +2,15 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash
 from . import db
 from .models import Pengundi
 
-# from flask_login import login_required (UNCOMMENT ONCE AUTH ADDED)
-# from .routes import require_admin (UNCOMMENT ONCE AUTH ADDED)
+from flask_login import login_required
+from .routes import require_admin
 
 pengundi_bp = Blueprint("pengundi", __name__, url_prefix="/pengundi")
 
 
 @pengundi_bp.get("/senarai")
-# @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_admin (UNCOMMENT ONCE AUTH ADDED)
+@login_required
+@require_admin
 def pengundi_senarai():
     pengundi_list = Pengundi.query.all()
     return render_template(
@@ -19,8 +19,8 @@ def pengundi_senarai():
 
 
 @pengundi_bp.route("/insert", methods=["GET", "POST"])
-# @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_admin (UNCOMMENT ONCE AUTH ADDED)
+@login_required
+@require_admin
 def pengundi_insert():
     if request.method == "POST":
         idPengundi = request.form.get("idPengundi")
@@ -44,8 +44,8 @@ def pengundi_insert():
 
 
 @pengundi_bp.route("/update/<idpengundi>", methods=["GET", "POST"])
-# @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_admin (UNCOMMENT ONCE AUTH ADDED)
+@login_required
+@require_admin
 def pengundi_update(idpengundi):
     pengundi = Pengundi.query.get(idpengundi)
     if not pengundi:
@@ -72,8 +72,8 @@ def pengundi_update(idpengundi):
 
 
 @pengundi_bp.delete("/delete/<idpengundi>")
-# @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_admin (UNCOMMENT ONCE AUTH ADDED)
+@login_required
+@require_admin
 def pengundi_delete(idpengundi):
     pengundi = Pengundi.query.get(idpengundi)
     if not pengundi:
@@ -83,17 +83,17 @@ def pengundi_delete(idpengundi):
     return {"message": "Deleted successfully"}, 200
 
 
-@pengundi_bp.route("/carian")
-# @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_admin (UNCOMMENT ONCE AUTH ADDED)
+@pengundi_bp.get("/carian")
+@login_required
+@require_admin
 def pengundi_carian():
     pengundi_list = Pengundi.query.all()
     return render_template("pengundi/pengundi_carian.html", pengundi_list=pengundi_list)
 
 
 @pengundi_bp.post("/maklumat")
-# @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_admin (UNCOMMENT ONCE AUTH ADDED)
+@login_required
+@require_admin
 def pengundi_maklumat():
     idpengundi = request.form.get("idPengundi")
     pengundi = Pengundi.query.get(idpengundi)

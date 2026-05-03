@@ -20,12 +20,10 @@ wheels/
 *.sqlite
 instance/
 
-# Migrations
-migrations/
-
 # Docker files
 Dockerfile
 docker-compose.yml
 
 # Test Files
 create_db.py
+data_pengundi.*

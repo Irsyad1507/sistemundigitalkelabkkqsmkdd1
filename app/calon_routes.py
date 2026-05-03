@@ -5,23 +5,23 @@ from werkzeug.utils import secure_filename
 import uuid as uuid
 import os
 
-# from flask_login import login_required (UNCOMMENT ONCE AUTH ADDED)
-# from .routes import require_admin (UNCOMMENT ONCE AUTH ADDED)
+from flask_login import login_required
+from .routes import require_admin
 
 calon_bp = Blueprint("calon", __name__, url_prefix="/calon")
 
 
 @calon_bp.get("/senarai")
-# @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_admin (UNCOMMENT ONCE AUTH ADDED)
+@login_required
+@require_admin
 def calon_senarai():
     senarai_calon = Calon.query.all()
     return render_template("calon/calon_senarai.html", senarai_calon=senarai_calon)
 
 
 @calon_bp.route("/insert", methods=["GET", "POST"])
-# @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_admin (UNCOMMENT ONCE AUTH ADDED)
+@login_required
+@require_admin
 def calon_insert():
     admin = Admin.query.all()
     if request.method == "POST":
@@ -66,8 +66,8 @@ def calon_insert():
 
 
 @calon_bp.route("/update/<idcalon>", methods=["GET", "POST"])
-# @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_admin (UNCOMMENT ONCE AUTH ADDED)
+@login_required
+@require_admin
 def calon_update(idcalon):
     calon = Calon.query.get(idcalon)
     if not calon:
@@ -112,8 +112,8 @@ def calon_update(idcalon):
 
 
 @calon_bp.delete("/delete/<idcalon>")
-# @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_admin (UNCOMMENT ONCE AUTH ADDED)
+@login_required
+@require_admin
 def calon_delete(idcalon):
     calon = Calon.query.get(idcalon)
     if not calon:

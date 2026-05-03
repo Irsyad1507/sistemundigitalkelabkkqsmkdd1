@@ -2,23 +2,23 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash
 from . import db
 from .models import Admin
 
-# from flask_login import login_required (UNCOMMENT ONCE AUTH ADDED)
-# from .routes import require_admin (UNCOMMENT ONCE AUTH ADDED)
+from flask_login import login_required
+from .routes import require_admin
 
 admin_bp = Blueprint("admin", __name__, url_prefix="/admin")
 
 
 @admin_bp.get("/senarai")
-# @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_admin (UNCOMMENT ONCE AUTH ADDED)
+@login_required
+@require_admin
 def admin_senarai():
     admins = Admin.query.all()
     return render_template("admin/admin_senarai.html", admins=admins)
 
 
 @admin_bp.route("/insert", methods=["GET", "POST"])
-# @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_admin (UNCOMMENT ONCE AUTH ADDED)
+@login_required
+@require_admin
 def admin_insert():
     if request.method == "POST":
         idAdmin = request.form.get("idAdmin")
@@ -35,8 +35,8 @@ def admin_insert():
 
 
 @admin_bp.route("/update/<idadmin>", methods=["GET", "POST"])
-# @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_admin (UNCOMMENT ONCE AUTH ADDED)
+@login_required
+@require_admin
 def admin_update(idadmin):
     admin = Admin.query.get(idadmin)
     if not admin:
@@ -61,8 +61,8 @@ def admin_update(idadmin):
 
 
 @admin_bp.delete("/delete/<idadmin>")
-# @login_required (UNCOMMENT ONCE AUTH ADDED)
-# @require_admin (UNCOMMENT ONCE AUTH ADDED)
+@login_required
+@require_admin
 def admin_delete(idadmin):
     admin = Admin.query.get(idadmin)
     if not admin:

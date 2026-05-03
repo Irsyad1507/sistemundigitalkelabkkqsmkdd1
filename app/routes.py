@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request, flash
 from app import app, db, login_manager
 from app.models import Admin, Calon, Pengundi
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 from functools import wraps
 
 
@@ -112,3 +112,63 @@ def logout():
     logout_user()
     flash("Berjaya log keluar.", "success")
     return redirect(url_for("index"))
+
+
+@app.route("/import", methods=["GET", "POST"])
+@login_required
+@require_admin
+def import_data():
+    if request.method == "POST":
+        namaJadual = request.form.get("namaJadual")
+        namaFail = request.files.get("namaFail")
+
+        if not namaFail or namaFail.filename == "":
+            flash("Sila pilih fail untuk diimport.", "danger")
+            return render_template(
+                "import.html", error="Sila pilih fail untuk diimport."
+            )
+        with open(namaFail.filename, "r") as fail:
+            for line in fail:
+                medan = line.strip().split(",")
+
+                if namaJadual == "admin":
+                    if len(medan) != 3:
+                        flash("Format fail tidak sah untuk jadual admin.", "danger")
+                        return render_template(
+                            "import.html",
+                            error="Format fail tidak sah untuk jadual admin.",
+                        )
+                    idAdmin, namaAdmin, password = medan
+                    if Admin.query.filter_by(idAdmin=idAdmin).first():
+                        flash(f"ID Admin {idAdmin} sudah wujud. Skipping.", "warning")
+                        continue
+                    admin_baru = Admin(
+                        idAdmin=idAdmin, namaAdmin=namaAdmin, password=password
+                    )
+                    db.session.add(admin_baru)
+
+                elif namaJadual == "pengundi":
+                    if len(medan) != 4:
+                        flash("Format fail tidak sah untuk jadual pengundi.", "danger")
+                        return render_template(
+                            "import.html",
+                            error="Format fail tidak sah untuk jadual pengundi.",
+                        )
+                    idPengundi, namaPengundi, password, idCalon = medan
+                    if Pengundi.query.filter_by(idPengundi=idPengundi).first():
+                        flash(
+                            f"ID Pengundi {idPengundi} sudah wujud. Skipping.",
+                            "warning",
+                        )
+                        continue
+                    pengundi_baru = Pengundi(
+                        idPengundi=idPengundi,
+                        namaPengundi=namaPengundi,
+                        password=password,
+                        idCalon=idCalon,
+                    )
+                    db.session.add(pengundi_baru)
+
+            db.session.commit()
+        flash("Data berjaya diimport.", "success")
+    return render_template("import.html")
