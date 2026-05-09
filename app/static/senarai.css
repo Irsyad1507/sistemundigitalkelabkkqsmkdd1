@@ -29,6 +29,7 @@ table {
     border-collapse: collapse;
     clear: left;
     box-shadow: 15px 15px 6px 0px rgba(78, 72, 72, 0.5);
+    print-color-adjust: exact;
 }
 
 table.maklumat {

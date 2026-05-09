@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Cetak laporan{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='senarai.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+{% endblock %}
+
+{% block navbar %}
+    {% include 'admin_navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    <div id="printarea">
+        {% if pilihan == "1" %}
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Jumlah Undi</th>
+                </tr>
+                {% for calon in keputusan %}
+                <tr>
+                    <td>{{ calon.idCalon }}</td>
+                    <td>{{ calon.namaCalon }}</td>
+                    <td>{{ calon.jum_ikut_calon }}</td>
+                </tr>
+                {% endfor %}
+                <caption>
+                    <img width="400" src="{{ url_for('static', filename='imej/tajuk.png') }}" alt="SISTEM UNDIGITAL KELAB KKQ SMKDD1"><br>
+                    SENARAI CALON MENGIKUT BILANGAN UNDI
+                </caption>
+            </table>
+        {% elif pilihan == "2" %}
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Carta</th>
+                    <th>Peratus</th>
+                </tr>
+                {% for undian in keputusan %}
+                    {% set peratus_belum_format = ((undian.jum_ikut_calon / jum_semua_undi) * 100) %}
+                    {% set peratus = "{:.1f}".format(peratus_belum_format) %}
+                    {% if undian.idCalon != "C00" %}
+                        <tr>
+                            <td>{{ undian.idCalon }}</td>
+                            <td>{{ undian.namaCalon }}</td>
+                            <td><progress value="{{ peratus }}" max="100"></progress></td>
+                            <td>{{ peratus }}%</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                <caption>
+                    <img width="400" src="{{ url_for('static', filename='imej/tajuk.png') }}" alt="SISTEM UNDIGITAL KELAB KKQ SMKDD1"><br>
+                    SENARAI CALON MENGIKUT PERATUS UNDI
+                </caption>
+            </table>
+        {% endif %}
+    </div>
+    <center><button class="cetak" onclick="printPageArea()">Cetak</button></center>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function printPageArea() {
+            var printContent = document.getElementById("printarea").innerHTML;
+            var originalContent = document.body.innerHTML;
+
+            document.body.innerHTML = printContent;
+            window.print();
+            document.body.innerHTML = originalContent;
+        }
+    </script>
+{% endblock %}
