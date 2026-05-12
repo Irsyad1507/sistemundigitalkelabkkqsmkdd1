@@ -29,7 +29,7 @@
                 <td class="warna">Gambar</td>
                 <td>
                     <input type="file" name="gambar" accept=".png, .jpg, .jpeg">
-                    <img width="100" src="{{ url_for('static', filename='imej/' + calon.gambar) }}" alt="{{ calon.namaCalon }}">
+                    <img width="100" src="{{ url_for('static', filename='imej/uploads/' + calon.gambar) }}" alt="{{ calon.namaCalon }}">
                 </td>
             </tr>
             <tr>

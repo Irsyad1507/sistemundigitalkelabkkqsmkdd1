@@ -35,7 +35,7 @@
                 {% for calon in senarai_calon %}
                     {% if calon.idCalon != 'C00' %}
                         <figure>
-                            <img class="home" src="{{ url_for('static', filename='imej/' + calon.gambar) }}" alt="{{ calon.namaCalon }}">
+                            <img class="home" src="{{ url_for('static', filename='imej/uploads/' + calon.gambar) }}" alt="{{ calon.namaCalon }}">
                             <figcaption>
                                 <input type="hidden" name="idPengundi" value="{{ current_user.idPengundi }}">
                                 <input type="radio" name="idCalon" value="{{ calon.idCalon }}">
@@ -58,7 +58,7 @@
             {% for calon in senarai_calon %}
                 {% if calon.idCalon != 'C00' %}
                     <figure>
-                        <img class="home" src="{{ url_for('static', filename='imej/' + calon.gambar) }}" alt="{{ calon.namaCalon }}">
+                        <img class="home" src="{{ url_for('static', filename='imej/uploads/' + calon.gambar) }}" alt="{{ calon.namaCalon }}">
                         <figcaption>{{ calon.namaCalon }}</figcaption>
                     </figure>
                 {% endif %}
