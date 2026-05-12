@@ -31,4 +31,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 
 # Run migrations and start gunicorn
 # In Dockerfile CMD - optional
-CMD ["sh", "-c", "flask db upgrade && gunicorn --bind 0.0.0.0:8000 --workers 2 --worker-class sync --timeout 60 wsgi:app"]
+CMD ["uv", "run", "sh", "-c", "flask db upgrade && gunicorn --bind 0.0.0.0:8000 --workers 2 --worker-class sync --timeout 60 wsgi:app"]
