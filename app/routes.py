@@ -172,3 +172,12 @@ def import_data():
             db.session.commit()
         flash("Data berjaya diimport.", "success")
     return render_template("import.html")
+
+
+@app.route("/health")
+def health():
+    try:
+        db.session.execute("SELECT 1")
+        return {"status": "healthy"}, 200
+    except Exception as e:
+        return {"status": "unhealthy", "error": str(e)}, 500

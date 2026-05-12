@@ -21,7 +21,6 @@ wheels/
 instance/
 
 # Docker files
-Dockerfile
 docker-compose.yml
 .dockerignore
 
