@@ -13,12 +13,17 @@
     <header>
         <img class="tajuk" src="{{ url_for('static', filename='imej/tajuk.png') }}" alt="SISTEM UNDIGITAL KELAB KKQ SMKDD1">
     </header>
-    <main>
         {% block navbar %}
         {% endblock %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <h4 class="{{ category }}">{{ message }}</h4>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         {% block content %}
         {% endblock %}
-    </main>
 </body>
 {% block script %}
 {% endblock %}
