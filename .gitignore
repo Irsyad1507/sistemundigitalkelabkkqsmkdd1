@@ -27,4 +27,5 @@ docker-compose.yml
 # Test Files
 create_db.py
 data_pengundi.*
+data_admin.*
 important_commands.txt

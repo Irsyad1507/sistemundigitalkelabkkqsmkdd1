@@ -39,7 +39,8 @@ class Calon(db.Model):
 
     idCalon = db.Column(db.String(3), primary_key=True)
     namaCalon = db.Column(db.String(20))
-    gambar = db.Column(db.String(100))
+    gambar = db.Column(db.Text)
+    gambar_public_id = db.Column(db.String(255))
     moto = db.Column(db.String(100))
     idAdmin = db.Column(db.String(3), db.ForeignKey("admin.idAdmin"))
 

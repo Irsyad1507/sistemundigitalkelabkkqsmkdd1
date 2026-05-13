@@ -25,7 +25,7 @@
             <tr>
                 <td>{{ calon.idCalon }}</td>
                 <td>{{ calon.namaCalon }}</td>
-                <td><img width="100" src="{{ url_for('static', filename='imej/uploads/' + calon.gambar) }}" alt="{{ calon.namaCalon }}"></td>
+                <td><img width="100" src="{{ calon.gambar }}" alt="{{ calon.namaCalon }}"></td>
                 <td>{{ calon.moto }}</td>
                 <td>
                     <a href="{{ url_for('calon.calon_update', idcalon=calon.idCalon) }}">

@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from . import app, db
 from .models import Admin, Calon
-from werkzeug.utils import secure_filename
-import uuid as uuid
-import os
-
+from .utils.cloudinary_helper import (
+    upload_gambar_to_cloudinary,
+    delete_gambar_from_cloudinary,
+)
 from flask_login import login_required
 from .routes import require_admin
 
@@ -37,21 +37,22 @@ def calon_insert():
         if request.files.get("gambar"):
             gambar_file = request.files.get("gambar")
 
-            gambar_filename = secure_filename(gambar_file.filename)
-            gambar = f"{uuid.uuid4().hex}_{gambar_filename}"
-            saved = request.files.get("gambar")
+            result = upload_gambar_to_cloudinary(gambar_file)
+            if not result:
+                flash("Ralat saat memuat naik gambar", "error")
+                return render_template("calon/calon_insert.html", admin=admin)
 
             new_calon = Calon(
                 idCalon=idCalon,
                 namaCalon=namaCalon,
-                gambar=gambar,
+                gambar=result["url"],
+                gambar_public_id=result["public_id"],
                 moto=moto,
                 idAdmin=idAdmin,
             )
             db.session.add(new_calon)
             try:
                 db.session.commit()
-                saved.save(os.path.join(app.config["UPLOAD_FOLDER"], gambar))
                 flash("Berjaya tambah", "success")
                 return redirect(url_for("calon.calon_insert"))
             except Exception as e:
@@ -84,9 +85,13 @@ def calon_update(idcalon):
         if request.files.get("gambar"):
             gambar_file = request.files.get("gambar")
 
-            gambar_filename = secure_filename(gambar_file.filename)
-            gambar = f"{uuid.uuid4().hex}_{gambar_filename}"
-            saved = request.files.get("gambar")
+            if calon.gambar_public_id:
+                delete_gambar_from_cloudinary(calon.gambar_public_id)
+
+            result = upload_gambar_to_cloudinary(gambar_file)
+            if not result:
+                flash("Ralat saat memuat naik gambar", "error")
+                return render_template("calon/calon_update.html", calon=calon)
 
             if idCalon:
                 calon.idCalon = idCalon
@@ -94,10 +99,10 @@ def calon_update(idcalon):
                 calon.namaCalon = namaCalon
             if moto:
                 calon.moto = moto
-            calon.gambar = gambar
+            calon.gambar = result["url"]
+            calon.gambar_public_id = result["public_id"]
             try:
                 db.session.commit()
-                saved.save(os.path.join(app.config["UPLOAD_FOLDER"], gambar))
                 flash("Berjaya kemaskini", "success")
                 return redirect(url_for("calon.calon_update", idcalon=calon.idCalon))
             except Exception as e:
@@ -118,6 +123,8 @@ def calon_delete(idcalon):
     calon = Calon.query.get(idcalon)
     if not calon:
         return {"error": "Calon not found"}, 404
+    if calon.gambar_public_id:
+        delete_gambar_from_cloudinary(calon.gambar_public_id)
     db.session.delete(calon)
     db.session.commit()
     return {"message": "Deleted successfully"}, 200

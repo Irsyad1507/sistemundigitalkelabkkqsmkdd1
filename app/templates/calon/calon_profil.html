@@ -24,20 +24,10 @@
                 <tr>
                     <td>{{ calon.idCalon }}</td>
                     <td>{{ calon.namaCalon }}</td>
-                    <td><img width="100" src="{{ url_for('static', filename='imej/uploads/' + calon.gambar) }}" alt="{{ calon.namaCalon }}"></td>
+                    <td><img width="100" src="{{ calon.gambar }}" alt="{{ calon.namaCalon }}"></td>
                     <td>{{ calon.moto }}</td>
                 </tr>
             {% endif %}
         {% endfor %}
     </table>
-{% endblock %}
-
-{% block script %}
-    <!-- <script>
-        function padam(idCalon) {
-            if (confirm("Adakah anda ingin padam?")) {
-                window.location.href = "" + idCalon;
-            }
-        }
-    </script> -->
 {% endblock %}
