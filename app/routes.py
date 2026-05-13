@@ -3,6 +3,7 @@ from app import app, db, login_manager
 from app.models import Admin, Calon, Pengundi
 from flask_login import current_user, login_user, logout_user, login_required
 from functools import wraps
+import os
 
 
 @login_manager.user_loader
@@ -127,7 +128,10 @@ def import_data():
             return render_template(
                 "import.html", error="Sila pilih fail untuk diimport."
             )
-        with open(namaFail.filename, "r") as fail:
+        namaFail.save(os.path.join(app.config["UPLOAD_FOLDER"], namaFail.filename))
+        with open(
+            os.path.join(app.config["UPLOAD_FOLDER"], namaFail.filename), "r"
+        ) as fail:
             for line in fail:
                 medan = line.strip().split(",")
 
@@ -168,7 +172,11 @@ def import_data():
                         idCalon=idCalon,
                     )
                     db.session.add(pengundi_baru)
-
+                else:
+                    flash("Nama jadual tidak sah.", "danger")
+                    return render_template(
+                        "import.html", error="Nama jadual tidak sah."
+                    )
             db.session.commit()
         flash("Data berjaya diimport.", "success")
     return render_template("import.html")
